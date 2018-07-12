@@ -64,3 +64,29 @@ Follow the layout provided below.
 - Be testable;
 - Solve the problem.
 - This repository should be private cloned and shared with techtest_au@kindredgroup.com when complete.
+
+## Setup
+
+### Step 1:
+
+```
+npm i
+```
+
+OR
+
+```
+yarn
+```
+
+### Step 2:
+
+```
+npm run start
+```
+
+OR
+
+```
+yarn start
+```
