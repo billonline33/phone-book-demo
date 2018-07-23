@@ -9,13 +9,15 @@ class InputForm extends React.Component {
     this.onLastNameInputChange = this.onLastNameInputChange.bind(this)
     this.onPhoneNumberInputChange = this.onPhoneNumberInputChange.bind(this)
 
-    this.state = {
+    this.initialState = {
       firstNameInput: '',
       lastNameInput: '',
       phoneNumberInput: ''
     }
 
+    this.state = this.initialState
   }
+
   onFirstNameInputChange(e) {
     this.setState({firstNameInput: e.target.value})
   }
@@ -27,7 +29,13 @@ class InputForm extends React.Component {
   }
 
 
+
+
   render() {
+    const onCancelClicked = () => {
+      this.setState(this.initialState)
+      this.props.onClickCancel()
+    }
     const onSaveClicked = () => {
       this.props.onClickSave({
         firstName: this.state.firstNameInput,
@@ -58,7 +66,7 @@ class InputForm extends React.Component {
           <Row>
             <Col xs={12} className={'col controls-container'}>
               <Button bsStyle={'link'} onClick={onSaveClicked}> Save</Button>
-              <Button bsStyle={'link'}> Cancel</Button>
+              <Button bsStyle={'link'} onClick={onCancelClicked}> Cancel</Button>
             </Col>
           </Row>
         </Grid>
