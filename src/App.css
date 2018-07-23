@@ -30,3 +30,8 @@
     transform: rotate(360deg);
   }
 }
+
+.col:not(:first-child, :last-child) {
+  padding-right: 7px;
+  padding-left: 7px;
+}

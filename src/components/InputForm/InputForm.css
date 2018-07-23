@@ -1,0 +1,8 @@
+.employee-form-outer-container {
+  margin-top: 80px;
+}
+
+.employee-form-outer-container .input-control {
+  margin-left: 50px;
+  display: inline-block;
+}
