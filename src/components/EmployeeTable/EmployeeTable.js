@@ -24,33 +24,19 @@ class EmployeeTable extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>
-                      <Button bsStyle={"link"}>Edit</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>
-                      <Button bsStyle={"link"}>Edit</Button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>
-                      <Button bsStyle={"link"}>Edit</Button>
-                    </td>
-                  </tr>
+                  {this.props.employeeList.map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.firstName}</td>
+                        <td>{item.lastName}</td>
+                        <td>{item.phoneNumber}</td>
+                        <td>
+                          <Button bsStyle={"link"}>Edit</Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </Col>
