@@ -20,7 +20,8 @@ class App extends Component {
     this.initialState = {
       firstNameInput: "",
       lastNameInput: "",
-      phoneNumberInput: ""
+      phoneNumberInput: "",
+      filterInput: ""
     };
 
     this.state = this.initialState;
@@ -29,6 +30,7 @@ class App extends Component {
     this.onFirstNameInputChange = this.onFirstNameInputChange.bind(this);
     this.onLastNameInputChange = this.onLastNameInputChange.bind(this);
     this.onPhoneNumberInputChange = this.onPhoneNumberInputChange.bind(this);
+    this.onFilterInputChange = this.onFilterInputChange.bind(this);
     this.onEditEmployeeClick = this.onEditEmployeeClick.bind(this);
     this.resetForm = this.resetForm.bind(this);
   }
@@ -48,6 +50,10 @@ class App extends Component {
   }
   onPhoneNumberInputChange(e) {
     this.setState({ phoneNumberInput: e.target.value });
+  }
+  onFilterInputChange(e) {
+    console.log("e.target.value: ", e.target.value);
+    this.setState({ filterInput: e.target.value });
   }
   onClickSave() {
     const { addEmployee, successEditEmployee } = this.props;
@@ -75,7 +81,11 @@ class App extends Component {
   }
 
   resetForm() {
-    this.setState(this.initialState);
+    this.setState({
+      firstNameInput: "",
+      lastNameInput: "",
+      phoneNumberInput: ""
+    });
   }
 
   onClickCancel() {
@@ -100,6 +110,14 @@ class App extends Component {
 
   render() {
     const { employeeList } = this.props;
+    const filter = this.state.filterInput;
+    const filterEmployeeList = employeeList.filter(item => {
+      return (
+        (item.firstName && item.firstName.includes(filter)) ||
+        (item.lastName && item.lastName.includes(filter)) ||
+        (item.phoneNumber && item.phoneNumber.includes(filter))
+      );
+    });
     return (
       <div className="App">
         <InputForm
@@ -113,8 +131,10 @@ class App extends Component {
           onClickCancel={this.onClickCancel}
         />
         <EmployeeTable
-          employeeList={employeeList}
+          employeeList={filterEmployeeList}
           onEditEmployeeClick={this.onEditEmployeeClick}
+          filter={this.state.filterInput}
+          onFilterInputChange={this.onFilterInputChange}
         />
       </div>
     );

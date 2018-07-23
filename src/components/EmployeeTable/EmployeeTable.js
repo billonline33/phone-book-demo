@@ -11,7 +11,11 @@ class EmployeeTable extends React.Component {
             <Col xs={12} className={"col"}>
               <div className={"filter-container"}>
                 <span> Filter </span>
-                <input type={"text"} />
+                <input
+                  type={"text"}
+                  value={this.props.filter}
+                  onChange={this.props.onFilterInputChange}
+                />
               </div>
               <Table bordered condensed hover className={"employee-table"}>
                 <thead>
