@@ -1,0 +1,11 @@
+.employee-table-outer-container {
+  margin-top: 80px;
+}
+
+.employee-table-outer-container .filter-container {
+  text-align: right;
+}
+
+.employee-table-outer-container .employee-table {
+  margin-top: 20px;
+}
