@@ -3,6 +3,9 @@ export const ADD_EMPLOYEE = "employees/ADD_EMPLOYEE";
 export const START_EDIT_USER = "employees/START_EDIT_USER";
 export const SUCCESS_EDIT_USER = "employees/SUCCESS_EDIT_USER";
 export const CANCEL_EDIT_USER = "employees/CANCEL_EDIT_USER";
+export const CLICK_SORT_FN = "employees/ CLICK_SORT_FN";
+export const CLICK_SORT_LN = "employees/CLICK_SORT_LN";
+export const CLICK_SORT_PN = "employees/CLICK_SORT_PN";
 
 const initialState = {
   employeeList: [],
@@ -11,6 +14,16 @@ const initialState = {
   sortLastName: null,
   sortPhoneNumber: null,
   editingEmployeeId: null
+};
+
+const nextSortSetting = curr => {
+  if (curr === null) {
+    return "ASC";
+  } else if (curr === "ASC") {
+    return "DESC";
+  } else {
+    return null;
+  }
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +50,30 @@ export default (state = initialState, action) => {
         ...state,
         editingEmployeeId: null
       };
+
+    case CLICK_SORT_FN:
+      return {
+        ...state,
+        sortFirstName: nextSortSetting(state.sortFirstName),
+        sortLastName: null,
+        sortPhoneNumber: null
+      };
+
+    case CLICK_SORT_LN:
+      return {
+        ...state,
+        sortLastName: nextSortSetting(state.sortLastName),
+        sortFirstName: null,
+        sortPhoneNumber: null
+      };
+    case CLICK_SORT_PN:
+      return {
+        ...state,
+        sortPhoneNumber: nextSortSetting(state.sortPhoneNumber),
+        sortFirstName: null,
+        sortLastName: null
+      };
+
     case SUCCESS_EDIT_USER:
       const editId = state.editingEmployeeId;
       const editedEmployeeList = state.employeeList.map(item => {
@@ -100,6 +137,30 @@ export const successEditEmployee = editedInfo => {
     dispatch({
       type: SUCCESS_EDIT_USER,
       editedInfo
+    });
+  };
+};
+
+export const clickSortFirstName = () => {
+  return dispatch => {
+    dispatch({
+      type: CLICK_SORT_FN
+    });
+  };
+};
+
+export const clickSortLastName = () => {
+  return dispatch => {
+    dispatch({
+      type: CLICK_SORT_LN
+    });
+  };
+};
+
+export const clickSortPhoneNumber = () => {
+  return dispatch => {
+    dispatch({
+      type: CLICK_SORT_PN
     });
   };
 };

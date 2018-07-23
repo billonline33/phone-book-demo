@@ -3,10 +3,6 @@ import "./InputForm.css";
 import { Col, Row, Grid, Button } from "react-bootstrap";
 
 class InputForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className={"employee-form-outer-container"}>

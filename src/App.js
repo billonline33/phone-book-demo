@@ -11,7 +11,10 @@ import {
   addEmployee,
   startEditEmployee,
   successEditEmployee,
-  cancelEditEmployee
+  cancelEditEmployee,
+  clickSortFirstName,
+  clickSortLastName,
+  clickSortPhoneNumber
 } from "./redux-modules/employees";
 
 class App extends Component {
@@ -27,6 +30,9 @@ class App extends Component {
     this.state = this.initialState;
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
+    this.onClickSortFN = this.onClickSortFN.bind(this);
+    this.onClickSortLN = this.onClickSortLN.bind(this);
+    this.onClickSortPN = this.onClickSortPN.bind(this);
     this.onFirstNameInputChange = this.onFirstNameInputChange.bind(this);
     this.onLastNameInputChange = this.onLastNameInputChange.bind(this);
     this.onPhoneNumberInputChange = this.onPhoneNumberInputChange.bind(this);
@@ -55,6 +61,18 @@ class App extends Component {
     console.log("e.target.value: ", e.target.value);
     this.setState({ filterInput: e.target.value });
   }
+  onClickSortFN() {
+    this.props.clickSortFirstName();
+  }
+
+  onClickSortLN() {
+    this.props.clickSortLastName();
+  }
+
+  onClickSortPN() {
+    this.props.clickSortPhoneNumber();
+  }
+
   onClickSave() {
     const { addEmployee, successEditEmployee } = this.props;
     const _resetForm = this.resetForm;
@@ -109,7 +127,12 @@ class App extends Component {
   }
 
   render() {
-    const { employeeList } = this.props;
+    const {
+      employeeList,
+      sortFirstName,
+      sortLastName,
+      sortPhoneNumber
+    } = this.props;
     const filter = this.state.filterInput;
     const filterEmployeeList = employeeList.filter(item => {
       return (
@@ -118,6 +141,49 @@ class App extends Component {
         (item.phoneNumber && item.phoneNumber.includes(filter))
       );
     });
+    let sortedEmployeeList = [].concat(filterEmployeeList);
+    if (sortFirstName != null) {
+      if (sortFirstName === "ASC") {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          a.firstName.localeCompare(b.firstName)
+        );
+      } else {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          b.firstName.localeCompare(a.firstName)
+        );
+      }
+    }
+    if (sortLastName != null) {
+      if (sortLastName === "ASC") {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          a.lastName.localeCompare(b.lastName)
+        );
+      } else {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          b.lastName.localeCompare(a.lastName)
+        );
+      }
+    }
+    if (sortPhoneNumber != null) {
+      if (sortPhoneNumber === "ASC") {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          a.phoneNumber.localeCompare(b.phoneNumber)
+        );
+      } else {
+        sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
+          b.phoneNumber.localeCompare(a.phoneNumber)
+        );
+      }
+    }
+
+    if (
+      sortFirstName === null &&
+      sortLastName === null &&
+      sortPhoneNumber === null
+    ) {
+      sortedEmployeeList = filterEmployeeList;
+    }
+
     return (
       <div className="App">
         <InputForm
@@ -131,9 +197,15 @@ class App extends Component {
           onClickCancel={this.onClickCancel}
         />
         <EmployeeTable
-          employeeList={filterEmployeeList}
+          employeeList={sortedEmployeeList}
           onEditEmployeeClick={this.onEditEmployeeClick}
           filter={this.state.filterInput}
+          sortFN={this.props.sortFirstName}
+          sortLN={this.props.sortLastName}
+          sortPN={this.props.sortPhoneNumber}
+          onClickSortFN={this.onClickSortFN}
+          onClickSortLN={this.onClickSortLN}
+          onClickSortPN={this.onClickSortPN}
           onFilterInputChange={this.onFilterInputChange}
         />
       </div>
@@ -143,7 +215,10 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   employeeList: state.employees.employeeList,
-  editingEmployeeId: state.employees.editingEmployeeId
+  editingEmployeeId: state.employees.editingEmployeeId,
+  sortFirstName: state.employees.sortFirstName,
+  sortLastName: state.employees.sortLastName,
+  sortPhoneNumber: state.employees.sortPhoneNumber
 });
 
 const mapDispatchToProps = dispatch =>
@@ -153,7 +228,10 @@ const mapDispatchToProps = dispatch =>
       addEmployee,
       cancelEditEmployee,
       successEditEmployee,
-      startEditEmployee
+      startEditEmployee,
+      clickSortFirstName,
+      clickSortLastName,
+      clickSortPhoneNumber
     },
     dispatch
   );

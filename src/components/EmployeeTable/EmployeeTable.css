@@ -9,3 +9,11 @@
 .employee-table-outer-container .employee-table {
   margin-top: 20px;
 }
+
+.employee-table-outer-container .employee-table th .col-heading {
+  float: left;
+  margin-left: 30%;
+}
+.employee-table-outer-container .employee-table th .sort-icon {
+  float: right;
+}
