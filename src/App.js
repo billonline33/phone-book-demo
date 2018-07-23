@@ -6,7 +6,13 @@ import "./App.css";
 import uniqid from "uniqid";
 import InputForm from "./components/InputForm/InputForm";
 import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
-import { loadEmployeeList, addEmployee } from "./redux-modules/employees";
+import {
+  loadEmployeeList,
+  addEmployee,
+  startEditEmployee,
+  successEditEmployee,
+  cancelEditEmployee
+} from "./redux-modules/employees";
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +29,7 @@ class App extends Component {
     this.onFirstNameInputChange = this.onFirstNameInputChange.bind(this);
     this.onLastNameInputChange = this.onLastNameInputChange.bind(this);
     this.onPhoneNumberInputChange = this.onPhoneNumberInputChange.bind(this);
+    this.onEditEmployeeClick = this.onEditEmployeeClick.bind(this);
     this.resetForm = this.resetForm.bind(this);
   }
   componentDidMount() {
@@ -43,18 +50,28 @@ class App extends Component {
     this.setState({ phoneNumberInput: e.target.value });
   }
   onClickSave() {
+    const { addEmployee, successEditEmployee } = this.props;
+    const _resetForm = this.resetForm;
     const employee = {
       firstName: this.state.firstNameInput,
       lastName: this.state.lastNameInput,
       phoneNumber: this.state.phoneNumberInput
     };
-    const { addEmployee } = this.props;
-    const _resetForm = this.resetForm;
-    employee["id"] = uniqid();
-    axios.post("api/employees", employee).then(function() {
-      addEmployee(employee);
-      _resetForm();
-    });
+
+    if (this.props.editingEmployeeId === null) {
+      employee["id"] = uniqid();
+      axios.post("api/employees", employee).then(function() {
+        addEmployee(employee);
+        _resetForm();
+      });
+    } else {
+      const editingId = this.props.editingEmployeeId;
+      employee["id"] = editingId;
+      axios.patch("api/employees/" + editingId, employee).then(function() {
+        successEditEmployee(employee);
+        _resetForm();
+      });
+    }
   }
 
   resetForm() {
@@ -62,12 +79,27 @@ class App extends Component {
   }
 
   onClickCancel() {
-    console.log("on click cancel in App");
-    this.resetForm();
+    const { cancelEditEmployee } = this.props;
+    if (this.props.editingEmployeeId === null) {
+      this.resetForm();
+    } else {
+      cancelEditEmployee();
+      this.resetForm();
+    }
   }
+  onEditEmployeeClick(id) {
+    const { startEditEmployee } = this.props;
+    const employee = this.props.employeeList.filter(item => item.id === id)[0];
+    this.setState({
+      firstNameInput: employee.firstName,
+      lastNameInput: employee.lastName,
+      phoneNumberInput: employee.phoneNumber
+    });
+    startEditEmployee(id);
+  }
+
   render() {
     const { employeeList } = this.props;
-    console.log("this.props.employeeList: ", this.props.employeeList);
     return (
       <div className="App">
         <InputForm
@@ -80,7 +112,10 @@ class App extends Component {
           onClickSave={this.onClickSave}
           onClickCancel={this.onClickCancel}
         />
-        <EmployeeTable employeeList={employeeList} />
+        <EmployeeTable
+          employeeList={employeeList}
+          onEditEmployeeClick={this.onEditEmployeeClick}
+        />
       </div>
     );
   }
@@ -88,14 +123,17 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   employeeList: state.employees.employeeList,
-  isEditingEmployee: state.employees.isEditingEmployee
+  editingEmployeeId: state.employees.editingEmployeeId
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       loadEmployeeList,
-      addEmployee
+      addEmployee,
+      cancelEditEmployee,
+      successEditEmployee,
+      startEditEmployee
     },
     dispatch
   );

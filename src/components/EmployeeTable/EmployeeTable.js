@@ -26,13 +26,20 @@ class EmployeeTable extends React.Component {
                 <tbody>
                   {this.props.employeeList.map((item, index) => {
                     return (
-                      <tr key={index}>
+                      <tr key={item.id}>
                         <td>{index + 1}</td>
                         <td>{item.firstName}</td>
                         <td>{item.lastName}</td>
                         <td>{item.phoneNumber}</td>
                         <td>
-                          <Button bsStyle={"link"}>Edit</Button>
+                          <Button
+                            bsStyle={"link"}
+                            onClick={() =>
+                              this.props.onEditEmployeeClick(item.id)
+                            }
+                          >
+                            Edit
+                          </Button>
                         </td>
                       </tr>
                     );
