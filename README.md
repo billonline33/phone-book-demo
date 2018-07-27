@@ -1,5 +1,9 @@
 # React Technical Excerise
 
+## Quick Start
+
+You can run the application from here https://phone-book-demo-react.herokuapp.com/
+
 ## Phone Book
 
 This is a simple phone book application using react and redux.
