@@ -14,7 +14,15 @@ import {
   cancelEditEmployee,
   clickSortFirstName,
   clickSortLastName,
-  clickSortPhoneNumber
+  clickSortPhoneNumber,
+  addEmployeeActionCreator,
+  startEditEmployeeActionCreator,
+  cancelEditEmployeeActionCreator,
+  successEditEmployeeActionCreator,
+  loadEmployeeListActionCreator,
+  clickSortFirstNameActionCreator,
+  clickSortLastNameActionCreator,
+  clickSortPhoneNumberActionCreator
 } from "./redux-modules/employees";
 
 const webAPIURL = "https://phone-book-demo-api.herokuapp.com";
@@ -43,10 +51,10 @@ class App extends Component {
     this.resetForm = this.resetForm.bind(this);
   }
   componentDidMount() {
-    const { loadEmployeeList } = this.props;
+    const { loadEmployeeList2 } = this.props;
 
     axios.get(`${webAPIURL}/employees`).then(function(response) {
-      loadEmployeeList(response.data);
+      loadEmployeeList2(response.data);
     });
   }
 
@@ -225,10 +233,11 @@ const mapStateToProps = state => ({
   sortPhoneNumber: state.employees.sortPhoneNumber
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
+/* opton 1 to connect redux action - Use bindActionCreators */
+/* const mapDispatchToProps = dispatch => {
+  var returnVal = bindActionCreators(
     {
-      loadEmployeeList,
+      loadEmployeeList2: loadEmployeeList,
       addEmployee,
       cancelEditEmployee,
       successEditEmployee,
@@ -239,6 +248,61 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
+  console.log("9999returnVal=", returnVal);
+  return returnVal;
+}; */
+
+/* const mapDispatchToProps = dispatch => {
+  var returnVal = bindActionCreators(
+    {
+      loadEmployeeList2: loadEmployeeListActionCreator,
+      addEmployee: addEmployeeActionCreator,
+      cancelEditEmployee: cancelEditEmployeeActionCreator,
+      successEditEmployee: successEditEmployeeActionCreator,
+      startEditEmployee: startEditEmployeeActionCreator,
+      clickSortFirstName: clickSortFirstNameActionCreator,
+      clickSortLastName: clickSortLastNameActionCreator,
+      clickSortPhoneNumber: clickSortPhoneNumberActionCreator
+    },
+    dispatch
+  );
+  console.log("9999returnVal=", returnVal);
+  return returnVal;
+};
+ */
+/* option 2 to connect redux action: Wrap into Dispatch Manually */
+/* const mapDispatchToProps = dispatch => ({
+  loadEmployeeList2: employeeList =>
+    dispatch(loadEmployeeListActionCreator(employeeList)),
+  addEmployee: employee => dispatch(addEmployeeActionCreator(employee)),
+  cancelEditEmployee: () => dispatch(cancelEditEmployeeActionCreator()),
+  successEditEmployee: editedInfo =>
+    dispatch(successEditEmployeeActionCreator(editedInfo)),
+  startEditEmployee: id => dispatch(startEditEmployeeActionCreator(id)),
+  clickSortFirstName: () => dispatch(clickSortFirstNameActionCreator()),
+  clickSortLastName: () => dispatch(clickSortLastNameActionCreator()),
+  clickSortPhoneNumber: () => dispatch(clickSortPhoneNumberActionCreator())
+});
+ */
+
+/* option  #4 Use bindActionCreators and Extend the Props */
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      loadEmployeeList2: loadEmployeeListActionCreator,
+      addEmployee: addEmployeeActionCreator,
+      cancelEditEmployee: cancelEditEmployeeActionCreator,
+      successEditEmployee: successEditEmployeeActionCreator,
+      startEditEmployee: startEditEmployeeActionCreator
+    },
+    dispatch
+  ),
+  clickSortFirstName: () => dispatch(clickSortFirstNameActionCreator()),
+  clickSortLastName: () => dispatch(clickSortLastNameActionCreator()),
+  clickSortPhoneNumber: () => dispatch(clickSortPhoneNumberActionCreator())
+});
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

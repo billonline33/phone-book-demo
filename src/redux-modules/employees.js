@@ -97,12 +97,26 @@ export default (state = initialState, action) => {
   }
 };
 
+export const loadEmployeeListActionCreator = employeeList => {
+  return {
+    type: LOAD_EMPLOYEE_LIST,
+    employeeList: employeeList
+  };
+};
+
 export const loadEmployeeList = employeeList => {
   return dispatch => {
     dispatch({
       type: LOAD_EMPLOYEE_LIST,
       employeeList: employeeList
     });
+  };
+};
+
+export const addEmployeeActionCreator = employee => {
+  return {
+    type: ADD_EMPLOYEE,
+    employee
   };
 };
 
@@ -115,6 +129,13 @@ export const addEmployee = employee => {
   };
 };
 
+export const startEditEmployeeActionCreator = id => {
+  return {
+    type: START_EDIT_USER,
+    id
+  };
+};
+
 export const startEditEmployee = id => {
   return dispatch => {
     dispatch({
@@ -124,11 +145,24 @@ export const startEditEmployee = id => {
   };
 };
 
+export const cancelEditEmployeeActionCreator = () => {
+  return {
+    type: CANCEL_EDIT_USER
+  };
+};
+
 export const cancelEditEmployee = () => {
   return dispatch => {
     dispatch({
       type: CANCEL_EDIT_USER
     });
+  };
+};
+
+export const successEditEmployeeActionCreator = editedInfo => {
+  return {
+    type: SUCCESS_EDIT_USER,
+    editedInfo
   };
 };
 
@@ -141,6 +175,12 @@ export const successEditEmployee = editedInfo => {
   };
 };
 
+export const clickSortFirstNameActionCreator = () => {
+  return {
+    type: CLICK_SORT_FN
+  };
+};
+
 export const clickSortFirstName = () => {
   return dispatch => {
     dispatch({
@@ -149,11 +189,23 @@ export const clickSortFirstName = () => {
   };
 };
 
+export const clickSortLastNameActionCreator = () => {
+  return {
+    type: CLICK_SORT_LN
+  };
+};
+
 export const clickSortLastName = () => {
   return dispatch => {
     dispatch({
       type: CLICK_SORT_LN
     });
+  };
+};
+
+export const clickSortPhoneNumberActionCreator = () => {
+  return {
+    type: CLICK_SORT_PN
   };
 };
 
