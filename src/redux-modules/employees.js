@@ -97,70 +97,55 @@ export default (state = initialState, action) => {
   }
 };
 
+/* Action creator  */
 export const loadEmployeeList = employeeList => {
-  return dispatch => {
-    dispatch({
-      type: LOAD_EMPLOYEE_LIST,
-      employeeList: employeeList
-    });
+  return {
+    type: LOAD_EMPLOYEE_LIST,
+    employeeList: employeeList
   };
 };
 
 export const addEmployee = employee => {
-  return dispatch => {
-    dispatch({
-      type: ADD_EMPLOYEE,
-      employee
-    });
+  return {
+    type: ADD_EMPLOYEE,
+    employee
   };
 };
 
 export const startEditEmployee = id => {
-  return dispatch => {
-    dispatch({
-      type: START_EDIT_USER,
-      id
-    });
+  return {
+    type: START_EDIT_USER,
+    id
   };
 };
 
 export const cancelEditEmployee = () => {
-  return dispatch => {
-    dispatch({
-      type: CANCEL_EDIT_USER
-    });
+  return {
+    type: CANCEL_EDIT_USER
   };
 };
 
 export const successEditEmployee = editedInfo => {
-  return dispatch => {
-    dispatch({
-      type: SUCCESS_EDIT_USER,
-      editedInfo
-    });
+  return {
+    type: SUCCESS_EDIT_USER,
+    editedInfo
   };
 };
 
 export const clickSortFirstName = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_FN
-    });
+  return {
+    type: CLICK_SORT_FN
   };
 };
 
 export const clickSortLastName = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_LN
-    });
+  return {
+    type: CLICK_SORT_LN
   };
 };
 
 export const clickSortPhoneNumber = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_PN
-    });
+  return {
+    type: CLICK_SORT_PN
   };
 };
