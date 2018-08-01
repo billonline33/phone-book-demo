@@ -1,11 +1,13 @@
-export const LOAD_EMPLOYEE_LIST = "employees/LOAD_EMPLOYEE_LIST";
-export const ADD_EMPLOYEE = "employees/ADD_EMPLOYEE";
-export const START_EDIT_USER = "employees/START_EDIT_USER";
-export const SUCCESS_EDIT_USER = "employees/SUCCESS_EDIT_USER";
-export const CANCEL_EDIT_USER = "employees/CANCEL_EDIT_USER";
-export const CLICK_SORT_FN = "employees/ CLICK_SORT_FN";
-export const CLICK_SORT_LN = "employees/CLICK_SORT_LN";
-export const CLICK_SORT_PN = "employees/CLICK_SORT_PN";
+import {
+  LOAD_EMPLOYEE_LIST,
+  ADD_EMPLOYEE,
+  START_EDIT_USER,
+  SUCCESS_EDIT_USER,
+  CANCEL_EDIT_USER,
+  CLICK_SORT_FN,
+  CLICK_SORT_LN,
+  CLICK_SORT_PN
+} from "../actions/employeeActions";
 
 const initialState = {
   employeeList: [],
@@ -95,124 +97,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export const loadEmployeeListActionCreator = employeeList => {
-  return {
-    type: LOAD_EMPLOYEE_LIST,
-    employeeList: employeeList
-  };
-};
-
-export const loadEmployeeList = employeeList => {
-  return dispatch => {
-    dispatch({
-      type: LOAD_EMPLOYEE_LIST,
-      employeeList: employeeList
-    });
-  };
-};
-
-export const addEmployeeActionCreator = employee => {
-  return {
-    type: ADD_EMPLOYEE,
-    employee
-  };
-};
-
-export const addEmployee = employee => {
-  return dispatch => {
-    dispatch({
-      type: ADD_EMPLOYEE,
-      employee
-    });
-  };
-};
-
-export const startEditEmployeeActionCreator = id => {
-  return {
-    type: START_EDIT_USER,
-    id
-  };
-};
-
-export const startEditEmployee = id => {
-  return dispatch => {
-    dispatch({
-      type: START_EDIT_USER,
-      id
-    });
-  };
-};
-
-export const cancelEditEmployeeActionCreator = () => {
-  return {
-    type: CANCEL_EDIT_USER
-  };
-};
-
-export const cancelEditEmployee = () => {
-  return dispatch => {
-    dispatch({
-      type: CANCEL_EDIT_USER
-    });
-  };
-};
-
-export const successEditEmployeeActionCreator = editedInfo => {
-  return {
-    type: SUCCESS_EDIT_USER,
-    editedInfo
-  };
-};
-
-export const successEditEmployee = editedInfo => {
-  return dispatch => {
-    dispatch({
-      type: SUCCESS_EDIT_USER,
-      editedInfo
-    });
-  };
-};
-
-export const clickSortFirstNameActionCreator = () => {
-  return {
-    type: CLICK_SORT_FN
-  };
-};
-
-export const clickSortFirstName = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_FN
-    });
-  };
-};
-
-export const clickSortLastNameActionCreator = () => {
-  return {
-    type: CLICK_SORT_LN
-  };
-};
-
-export const clickSortLastName = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_LN
-    });
-  };
-};
-
-export const clickSortPhoneNumberActionCreator = () => {
-  return {
-    type: CLICK_SORT_PN
-  };
-};
-
-export const clickSortPhoneNumber = () => {
-  return dispatch => {
-    dispatch({
-      type: CLICK_SORT_PN
-    });
-  };
 };
