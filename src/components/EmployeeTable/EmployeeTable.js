@@ -83,4 +83,4 @@ class EmployeeTable extends React.Component {
   }
 }
 
-export default LoaderHOC(EmployeeTable);
+export default LoaderHOC('employeeList')(EmployeeTable);

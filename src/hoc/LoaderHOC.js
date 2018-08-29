@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './loader.css';
-const LoaderHOC = WrappedComponent => {
+const LoaderHOC = propName => WrappedComponent => {
   class HOC extends Component {
     render() {
-      console.log('9999 this.props in HOC=', this.props);
-      return this.props.employeeList.length === 0 ? (
+      return this.props[propName].length === 0 ? (
         <div className="loader" />
       ) : (
         <WrappedComponent {...this.props} />
