@@ -1,11 +1,11 @@
-export const LOAD_EMPLOYEE_LIST = "employees/LOAD_EMPLOYEE_LIST";
-export const ADD_EMPLOYEE = "employees/ADD_EMPLOYEE";
-export const START_EDIT_USER = "employees/START_EDIT_USER";
-export const SUCCESS_EDIT_USER = "employees/SUCCESS_EDIT_USER";
-export const CANCEL_EDIT_USER = "employees/CANCEL_EDIT_USER";
-export const CLICK_SORT_FN = "employees/ CLICK_SORT_FN";
-export const CLICK_SORT_LN = "employees/CLICK_SORT_LN";
-export const CLICK_SORT_PN = "employees/CLICK_SORT_PN";
+export const LOAD_EMPLOYEE_LIST = 'employees/LOAD_EMPLOYEE_LIST';
+export const ADD_EMPLOYEE = 'employees/ADD_EMPLOYEE';
+export const START_EDIT_USER = 'employees/START_EDIT_USER';
+export const SUCCESS_EDIT_USER = 'employees/SUCCESS_EDIT_USER';
+export const CANCEL_EDIT_USER = 'employees/CANCEL_EDIT_USER';
+export const CLICK_SORT_FN = 'employees/ CLICK_SORT_FN';
+export const CLICK_SORT_LN = 'employees/CLICK_SORT_LN';
+export const CLICK_SORT_PN = 'employees/CLICK_SORT_PN';
 
 const initialState = {
   employeeList: [],
@@ -18,9 +18,9 @@ const initialState = {
 
 const nextSortSetting = curr => {
   if (curr === null) {
-    return "ASC";
-  } else if (curr === "ASC") {
-    return "DESC";
+    return 'ASC';
+  } else if (curr === 'ASC') {
+    return 'DESC';
   } else {
     return null;
   }

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import axios from "axios";
-import "./App.css";
-import uniqid from "uniqid";
-import InputForm from "./components/InputForm/InputForm";
-import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import './App.css';
+import uniqid from 'uniqid';
+import InputForm from './components/InputForm/InputForm';
+import EmployeeTable from './components/EmployeeTable/EmployeeTable';
 import {
   loadEmployeeList,
   addEmployee,
@@ -15,16 +15,16 @@ import {
   clickSortFirstName,
   clickSortLastName,
   clickSortPhoneNumber
-} from "./redux-modules/employees";
+} from './redux-modules/employees';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.initialState = {
-      firstNameInput: "",
-      lastNameInput: "",
-      phoneNumberInput: "",
-      filterInput: ""
+      firstNameInput: '',
+      lastNameInput: '',
+      phoneNumberInput: '',
+      filterInput: ''
     };
 
     this.state = this.initialState;
@@ -43,7 +43,7 @@ class App extends Component {
   componentDidMount() {
     const { loadEmployeeList } = this.props;
 
-    axios.get("/api/employees").then(function(response) {
+    axios.get('/api/employees').then(function(response) {
       loadEmployeeList(response.data);
     });
   }
@@ -58,7 +58,7 @@ class App extends Component {
     this.setState({ phoneNumberInput: e.target.value });
   }
   onFilterInputChange(e) {
-    console.log("e.target.value: ", e.target.value);
+    console.log('e.target.value: ', e.target.value);
     this.setState({ filterInput: e.target.value });
   }
   onClickSortFN() {
@@ -83,15 +83,15 @@ class App extends Component {
     };
 
     if (this.props.editingEmployeeId === null) {
-      employee["id"] = uniqid();
-      axios.post("api/employees", employee).then(function() {
+      employee['id'] = uniqid();
+      axios.post('api/employees', employee).then(function() {
         addEmployee(employee);
         _resetForm();
       });
     } else {
       const editingId = this.props.editingEmployeeId;
-      employee["id"] = editingId;
-      axios.patch("api/employees/" + editingId, employee).then(function() {
+      employee['id'] = editingId;
+      axios.patch('api/employees/' + editingId, employee).then(function() {
         successEditEmployee(employee);
         _resetForm();
       });
@@ -100,9 +100,9 @@ class App extends Component {
 
   resetForm() {
     this.setState({
-      firstNameInput: "",
-      lastNameInput: "",
-      phoneNumberInput: ""
+      firstNameInput: '',
+      lastNameInput: '',
+      phoneNumberInput: ''
     });
   }
 
@@ -143,7 +143,7 @@ class App extends Component {
     });
     let sortedEmployeeList = [].concat(filterEmployeeList);
     if (sortFirstName != null) {
-      if (sortFirstName === "ASC") {
+      if (sortFirstName === 'ASC') {
         sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
           a.firstName.localeCompare(b.firstName)
         );
@@ -154,7 +154,7 @@ class App extends Component {
       }
     }
     if (sortLastName != null) {
-      if (sortLastName === "ASC") {
+      if (sortLastName === 'ASC') {
         sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
           a.lastName.localeCompare(b.lastName)
         );
@@ -165,7 +165,7 @@ class App extends Component {
       }
     }
     if (sortPhoneNumber != null) {
-      if (sortPhoneNumber === "ASC") {
+      if (sortPhoneNumber === 'ASC') {
         sortedEmployeeList = sortedEmployeeList.sort((a, b) =>
           a.phoneNumber.localeCompare(b.phoneNumber)
         );
