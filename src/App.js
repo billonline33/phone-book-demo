@@ -17,6 +17,8 @@ import {
   clickSortPhoneNumber
 } from './redux-modules/employees';
 
+const webAPIURL = 'https://phone-book-demo-api.herokuapp.com';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,7 @@ class App extends Component {
   componentDidMount() {
     const { loadEmployeeList } = this.props;
 
-    axios.get('/api/employees').then(function(response) {
+    axios.get(`${webAPIURL}/employees`).then(function(response) {
       loadEmployeeList(response.data);
     });
   }
@@ -84,17 +86,19 @@ class App extends Component {
 
     if (this.props.editingEmployeeId === null) {
       employee['id'] = uniqid();
-      axios.post('api/employees', employee).then(function() {
+      axios.post(`${webAPIURL}/employees`, employee).then(function() {
         addEmployee(employee);
         _resetForm();
       });
     } else {
       const editingId = this.props.editingEmployeeId;
       employee['id'] = editingId;
-      axios.patch('api/employees/' + editingId, employee).then(function() {
-        successEditEmployee(employee);
-        _resetForm();
-      });
+      axios
+        .patch(`${webAPIURL}/employees/` + editingId, employee)
+        .then(function() {
+          successEditEmployee(employee);
+          _resetForm();
+        });
     }
   }
 
