@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import './loader.css';
 const LoaderHOC = propName => WrappedComponent => {
   class HOC extends Component {
+    isEmpty(prop) {
+      return (
+        prop === null ||
+        prop === undefined ||
+        (prop.hasOwnProperty('length') && prop.length === 0)
+      );
+    }
     render() {
-      return this.props[propName].length === 0 ? (
+      return this.isEmpty(this.props[propName]) ? (
         <div className="loader" />
       ) : (
         <WrappedComponent {...this.props} />
