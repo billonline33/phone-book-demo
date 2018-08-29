@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col, Button, Table, Glyphicon } from 'react-bootstrap';
 import './EmployeeTable.css';
+import LoaderHOC from '../../hoc/LoaderHOC';
 
 class EmployeeTable extends React.Component {
   render() {
@@ -82,4 +83,4 @@ class EmployeeTable extends React.Component {
   }
 }
 
-export default EmployeeTable;
+export default LoaderHOC(EmployeeTable);

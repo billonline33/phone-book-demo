@@ -17,8 +17,6 @@ import {
   clickSortPhoneNumber
 } from './redux-modules/employees';
 
-import LoaderHOC from './hoc/LoaderHOC';
-
 const webAPIURL = 'https://phone-book-demo-api.herokuapp.com';
 
 class App extends Component {
@@ -147,7 +145,7 @@ class App extends Component {
         (item.phoneNumber && item.phoneNumber.includes(filter))
       );
     });
-    const EmployeeTableWithLoader = LoaderHOC(EmployeeTable);
+
     let sortedEmployeeList = [].concat(filterEmployeeList);
     if (sortFirstName != null) {
       if (sortFirstName === 'ASC') {
@@ -203,7 +201,7 @@ class App extends Component {
           onClickSave={this.onClickSave}
           onClickCancel={this.onClickCancel}
         />
-        <EmployeeTableWithLoader
+        <EmployeeTable
           employeeList={sortedEmployeeList}
           onEditEmployeeClick={this.onEditEmployeeClick}
           filter={this.state.filterInput}
